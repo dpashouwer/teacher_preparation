@@ -39,6 +39,7 @@ by_state_program_completers <- program_completers %>%
   dplyr::mutate(state = str_remove(state, "01_"))
 
 saveRDS(by_state_program_completers, here::here("data/clean/by_state_program_completers.rds"))
+saveRDS(by_state_program_completers, here::here("output/app_teacher_preparation_completion/by_state_program_completers.rds"))
 
 # Enrollment data ---------------------------
 
@@ -63,3 +64,5 @@ by_state_enrollment <- enrollment_by_state_by_gender_by_race %>%
   group_nest(state)
 
 saveRDS(by_state_enrollment, here::here("data/clean/by_state_enrollment.rds"))
+# saveRDS(by_state_enrollment, here::here("output/app_teacher_preparation_completion/by_state_enrollment.rds"))
+

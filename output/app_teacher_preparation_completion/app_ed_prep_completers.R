@@ -4,7 +4,7 @@ library(janitor)
 library(tntpr)
 
 # Load data -------------------
-by_state_program_completers <- readRDS(here::here("data/clean/by_state_program_completers.rds"))
+by_state_program_completers <- readRDS(here::here("output/app_teacher_preparation_completion/by_state_program_completers.rds"))
 
 # Functions ------------------------
 plot_total_completers <- function(dat, state){
