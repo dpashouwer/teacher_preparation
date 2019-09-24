@@ -10,8 +10,8 @@ if (!suppressPackageStartupMessages(require("tntpr"))) {pacman::p_load(devtools)
 
 # Load data
 all_files <- tibble(
-  file_names_full = list.files(here::here("data/raw"), full.names = TRUE), 
-  file_names_short = list.files(here::here("data/raw"))) %>% 
+  file_names_full = list.files(here::here("data/raw"), full.names = TRUE, pattern = ".xls"), 
+  file_names_short = list.files(here::here("data/raw"), pattern = ".xls")) %>% 
   separate(file_names_short, into = c("pull_date", "category", "file_title"), sep = "_") %>% 
   mutate(sheets = map(file_names_full, excel_sheets)) %>% 
   unnest() %>% 
