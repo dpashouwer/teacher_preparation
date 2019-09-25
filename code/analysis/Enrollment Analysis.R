@@ -45,4 +45,4 @@ enrollment_perc_poc <- by_state_enrollment %>%
 #### ex. how to access plots
 enrollment_perc_poc %>% 
   filter(state == "Tennessee") %>% 
-  pull(calc_perc_poc_program)
+  pull(calc_perc_poc_program_type)

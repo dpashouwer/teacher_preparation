@@ -5,8 +5,8 @@ account: dpashouwer
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1238896
-bundleId: 2444275
+bundleId: 2444287
 url: https://dpashouwer.shinyapps.io/ed_prep_completion/
-when: 1569423257.64466
+when: 1569423447.39816
 asMultiple: FALSE
 asStatic: FALSE
