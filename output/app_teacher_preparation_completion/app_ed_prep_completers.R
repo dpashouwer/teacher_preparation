@@ -1,13 +1,18 @@
+# Global -------------------
 library(shiny)
+library(shinydashboard)
 library(tidyverse)
 library(janitor)
 library(tntpr)
 library(here)
 
-# Load data -------------------
+# Load data 
 by_state_program_completers <- readRDS(here::here("output/app_teacher_preparation_completion/by_state_program_completers.rds"))
+by_state_enrollment <- readRDS(here::here("data/clean/by_state_enrollment.rds"))
 
-# Functions ------------------------
+# Functions 
+
+### Completers
 plot_total_completers <- function(dat, state){
     dat %>% 
         filter(state == !!state) %>% 
@@ -34,16 +39,17 @@ plot_total_completers_by_type <- function(dat, state){
             geom_text(aes(label = n_completers))
 }
 
-plot_formatting <- function(plot){
-    plot + 
-        theme_tntp_2018() + 
-        scale_y_continuous(limits=c(0,NA)) + 
-        labs(x = "Academic Year", y = "Total Completers", 
-             color = NULL) +
-        scale_color_tntp()
-}
-
 plot_completers <- function(dat, state, type = "Total"){
+    
+    plot_formatting <- function(plot){
+        plot + 
+            theme_tntp_2018() + 
+            scale_y_continuous(limits=c(0,NA)) + 
+            labs(x = "Academic Year", y = "Total Completers", 
+                 color = NULL) +
+            scale_color_tntp()
+    }
+    
     if(type == "Total"){
         plot_total_completers(dat, state = state) %>% 
             plot_formatting()
@@ -53,19 +59,63 @@ plot_completers <- function(dat, state, type = "Total"){
     } 
 }
 
-# App ------------------------
+### Enrollment
 
-ui <- fluidPage(
-    sidebarLayout(
-        sidebarPanel(
-            selectInput(inputId = "state", label = "States", choices = unique(by_state_program_completers$state)), 
-            selectInput(inputId = "program_type", label = "Program Type", choices = c("Total", "By Program Type"))
-            ), 
-        mainPanel(
-            plotOutput(outputId = "line")
+
+
+
+# UI ------------------------
+
+ui <- dashboardPage(
+    skin = 'green',
+    dashboardHeader(
+        title = "Teacher Preparation", 
+        titleWidth = 300
+    ), 
+    dashboardSidebar(
+        width = 300, 
+        sidebarMenu(
+            menuItem('Overview', tabName = "overview",icon = icon('school')), 
+            menuItem('Completers', tabName = "completers",icon = icon('bookmark')))
+    ),
+    dashboardBody(
+        tabItems(
+            tabItem(
+                tabName = "overview",
+                        fluidPage(
+                            sidebarLayout(
+                                sidebarPanel(
+                                    h1("test")
+                                ), 
+                                mainPanel()
+                            )
+                        )
+            ),
+            tabItem(
+                tabName = "completers",
+                fluidPage(
+                    sidebarLayout(
+                        sidebarPanel(
+                            selectInput(inputId = "state", label = "States", choices = unique(by_state_program_completers$state)),
+                            selectInput(inputId = "program_type", label = "Program Type", choices = c("Total", "By Program Type"))
+                        ), 
+                        mainPanel(
+                            plotOutput(outputId = "line")
+                        )
+                    )
+                )
             )
+            
+        )
     )
 )
+
+
+?menuItem
+# Server ------------------------
+
+
+
 
 server <- function(input, output) {
     output$line <- renderPlot({
@@ -73,5 +123,5 @@ server <- function(input, output) {
     })
 }
 
-# Run the application 
+# Run the application  ------------------------
 shinyApp(ui = ui, server = server)
