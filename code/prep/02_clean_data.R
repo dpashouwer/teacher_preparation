@@ -39,7 +39,7 @@ by_state_program_completers <- program_completers %>%
   dplyr::mutate(state = str_remove(state, "01_"))
 
 saveRDS(by_state_program_completers, here::here("data/clean/by_state_program_completers.rds"))
-saveRDS(by_state_program_completers, here::here("output/app_teacher_preparation_completion/by_state_program_completers.rds"))
+saveRDS(by_state_program_completers, here::here("output/Teacher Preparation App/by_state_program_completers.rds"))
 
 # Enrollment data ---------------------------
 
@@ -61,8 +61,10 @@ enrollment_by_state_by_gender_by_race <- enrollment_by_state_by_gender_by_race_f
 
 # Analysis
 by_state_enrollment <- enrollment_by_state_by_gender_by_race %>% 
-  group_nest(state)
+  group_nest(state) %>% 
+  filter(str_detect(state, "Source:") == FALSE,
+         str_detect(state, "An enrolled student is an individual admitted") == FALSE)
 
 saveRDS(by_state_enrollment, here::here("data/clean/by_state_enrollment.rds"))
-# saveRDS(by_state_enrollment, here::here("output/app_teacher_preparation_completion/by_state_enrollment.rds"))
+saveRDS(by_state_enrollment, here::here("output/Teacher Preparation App/by_state_enrollment.rds"))
 

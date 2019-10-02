@@ -1,0 +1,12 @@
+name: teacher_preparation_app
+title: teacher_preparation_app
+username:
+account: dpashouwer
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1276980
+bundleId: 2463562
+url: https://dpashouwer.shinyapps.io/teacher_preparation_app/
+when: 1570049393.83933
+asMultiple: FALSE
+asStatic: FALSE
