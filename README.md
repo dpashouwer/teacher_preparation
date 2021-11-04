@@ -3,7 +3,7 @@ Teacher Preparation
 
 Shiny Dashboard
 ----------------------------
-View and interact with the Shiny Dashboard here: https://dpashouwer.shinyapps.io/ed_prep_completion/.
+View and interact with the Shiny Dashboard here:  https://dpashouwer.shinyapps.io/teacher_preparation_app/.
 
 Motivation
 ----------------------------
